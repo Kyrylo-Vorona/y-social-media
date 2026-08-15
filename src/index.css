@@ -1,0 +1,297 @@
+:root {
+    font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+    color: #18212f;
+    background: #f4f6f8;
+    font-synthesis: none;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-width: 320px;
+}
+
+a {
+    color: inherit;
+}
+
+button, input, textarea {
+    font: inherit;
+}
+
+.site-shell {
+    width: min(760px, calc(100% - 32px));
+    margin: 0 auto;
+    padding-bottom: 48px;
+}
+
+.topbar {
+    height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #dfe4eb;
+    margin-bottom: 32px;
+}
+
+.brand {
+    display: grid;
+    place-items: center;
+    width: 100px;
+    height: 38px;
+    background: #2356d8;
+    color: white;
+    border-radius: 12px;
+    font-size: 22px;
+    font-weight: 800;
+    text-decoration: none;
+}
+
+nav {
+    display: flex;
+    gap: 20px;
+}
+
+nav a {
+    color: #657084;
+    font-weight: 650;
+    text-decoration: none;
+}
+
+nav a.active {
+    color: #2356d8;
+}
+
+.page-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+h1, h2, p {
+    margin-top: 0;
+}
+
+h1 {
+    margin-bottom: 8px;
+    font-size: clamp(28px, 5vw, 38px);
+    letter-spacing: -.04em;
+}
+
+h2 {
+    margin-bottom: 8px;
+    font-size: 20px;
+    letter-spacing: -.025em;
+}
+
+p {
+    line-height: 1.55;
+    color: #4d596b;
+}
+
+.eyebrow {
+    margin-bottom: 5px;
+    color: #2356d8;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+}
+
+.button {
+    display: inline-block;
+    border: 0;
+    border-radius: 9px;
+    background: #2356d8;
+    color: #fff;
+    padding: 10px 14px;
+    font-weight: 750;
+    text-decoration: none;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.button:hover {
+    background: #1746bc;
+}
+
+.search, form label {
+    display: grid;
+    gap: 7px;
+    color: #354052;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.search {
+    margin-bottom: 20px;
+}
+
+.search input, form input, form textarea {
+    width: 100%;
+    border: 1px solid #cdd5df;
+    border-radius: 9px;
+    padding: 12px;
+    background: white;
+    color: #18212f;
+    outline-color: #2356d8;
+    font-weight: 400;
+}
+
+.feed {
+    display: grid;
+    gap: 14px;
+}
+
+.post-card, .form-page, .comments {
+    border: 1px solid #dfe4eb;
+    border-radius: 14px;
+    background: #fff;
+    padding: 22px;
+}
+
+.post-meta {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    color: #687589;
+    font-size: 14px;
+}
+
+.avatar {
+    display: grid;
+    place-items: center;
+    width: 27px;
+    height: 27px;
+    border-radius: 50%;
+    background: #dce6ff;
+    color: #2356d8;
+    font-weight: 800;
+}
+
+.post-link {
+    display: block;
+    text-decoration: none;
+    margin-top: 14px;
+}
+
+.post-link:hover h2 {
+    color: #2356d8;
+}
+
+.post-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 18px;
+    border-top: 1px solid #edf0f4;
+    padding-top: 13px;
+}
+
+.post-actions a, .back-link {
+    color: #2356d8;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.button-text {
+    border: 0;
+    background: transparent;
+    color: #4d596b;
+    padding: 0;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.danger {
+    color: #bd2e38;
+}
+
+.back-link {
+    display: inline-block;
+    margin: 0 0 14px;
+}
+
+.post-detail {
+    margin-bottom: 18px;
+}
+
+.post-detail > h1 {
+    margin: 16px 0 8px;
+    font-size: 28px;
+}
+
+.comments h2 {
+    margin-bottom: 16px;
+}
+
+.comment {
+    padding: 14px 0;
+    border-top: 1px solid #edf0f4;
+}
+
+.comment p {
+    margin: 4px 0 0;
+}
+
+.form-page {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.form-page > p:not(.eyebrow) {
+    margin-bottom: 24px;
+}
+
+form {
+    display: grid;
+    gap: 17px;
+}
+
+textarea {
+    resize: vertical;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 18px;
+    margin-top: 4px;
+}
+
+.empty {
+    padding: 34px 20px;
+    text-align: center;
+    color: #687589;
+}
+
+@media (max-width: 520px) {
+    .site-shell {
+        width: min(100% - 24px, 760px);
+    }
+
+    .topbar {
+        margin-bottom: 24px;
+    }
+
+    .page-heading {
+        align-items: start;
+        flex-direction: column;
+    }
+
+    .button {
+        width: 100%;
+        text-align: center;
+    }
+
+    .post-card, .form-page, .comments {
+        padding: 17px;
+    }
+}
