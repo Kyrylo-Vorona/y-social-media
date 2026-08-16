@@ -30,6 +30,9 @@ bun start
 
 ## Run in Docker
 
+On Windows, Docker Desktop needs WSL 2. Open PowerShell as administrator once,
+run `wsl --install`, and restart Windows if requested.
+
 ```bash
 docker build -t y-social-media .
 docker run --rm -p 3000:3000 y-social-media
