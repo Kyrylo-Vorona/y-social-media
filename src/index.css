@@ -32,7 +32,7 @@ button, input, textarea {
     height: 72px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     border-bottom: 1px solid #dfe4eb;
     margin-bottom: 32px;
 }
@@ -48,21 +48,6 @@ button, input, textarea {
     font-size: 22px;
     font-weight: 800;
     text-decoration: none;
-}
-
-nav {
-    display: flex;
-    gap: 20px;
-}
-
-nav a {
-    color: #657084;
-    font-weight: 650;
-    text-decoration: none;
-}
-
-nav a.active {
-    color: #2356d8;
 }
 
 .page-heading {
@@ -94,15 +79,6 @@ p {
     color: #4d596b;
 }
 
-.eyebrow {
-    margin-bottom: 5px;
-    color: #2356d8;
-    font-size: 13px;
-    font-weight: 800;
-    letter-spacing: .08em;
-    text-transform: uppercase;
-}
-
 .button {
     display: inline-block;
     border: 0;
@@ -118,6 +94,11 @@ p {
 
 .button:hover {
     background: #1746bc;
+}
+
+.button:disabled, .button-text:disabled {
+    cursor: wait;
+    opacity: .65;
 }
 
 .search, form label {
@@ -163,17 +144,6 @@ p {
     font-size: 14px;
 }
 
-.avatar {
-    display: grid;
-    place-items: center;
-    width: 27px;
-    height: 27px;
-    border-radius: 50%;
-    background: #dce6ff;
-    color: #2356d8;
-    font-weight: 800;
-}
-
 .post-link {
     display: block;
     text-decoration: none;
@@ -186,7 +156,7 @@ p {
 
 .post-actions {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
     margin-top: 18px;
     border-top: 1px solid #edf0f4;
@@ -245,10 +215,6 @@ p {
     margin: 0 auto;
 }
 
-.form-page > p:not(.eyebrow) {
-    margin-bottom: 24px;
-}
-
 form {
     display: grid;
     gap: 17px;
@@ -270,6 +236,18 @@ textarea {
     padding: 34px 20px;
     text-align: center;
     color: #687589;
+}
+
+.status {
+    padding: 18px;
+    border-radius: 9px;
+    background: #eef3ff;
+    text-align: center;
+}
+
+.error {
+    background: #fff0f1;
+    color: #9f2430;
 }
 
 @media (max-width: 520px) {

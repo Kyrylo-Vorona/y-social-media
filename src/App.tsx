@@ -1,39 +1,50 @@
-import {type FormEvent, useState, useEffect} from "react";
-import {BrowserRouter, Link, Navigate, Route, Routes, useNavigate, useParams} from "react-router-dom";
+import {useEffect, useState} from "react";
+import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
 import "./index.css";
-import { type Post } from "./types/post";
-import Feed from "./pages/Feed"
+import type {NewPost, Post} from "./types/post";
+import {createPost, deletePost, getPosts} from "./api/posts";
+import Feed from "./pages/Feed";
 import PostDetails from "./pages/PostDetails";
 import CreatePost from "./pages/CreatePost";
 
 function SocialApp() {
     const [posts, setPosts] = useState<Post[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState("");
+
     useEffect(() => {
-        fetch('https://dummyjson.com/posts')
-            .then(res => res.json())
-            .then((data) => {
-                const formattedPosts = data.posts.map((item: any) => ({
-                    id: String(item.id),
-                    author: `User ${item.userId}`,
-                    title: item.title,   
-                    body: item.body, 
-                    comments: []  
-                }));
-                setPosts(formattedPosts);
-            });
+        // Load the first posts when the app starts.
+        async function loadPosts() {
+            try {
+                const data = await getPosts();
+                setPosts(data);
+            } catch {
+                setError("Could not load posts. Please try again.");
+            } finally {
+                setLoading(false);
+            }
+        }
+
+        loadPosts();
     }, []);
-    const remove = (id: string) => setPosts(posts.filter(post => post.id !== id));
-    const add = (draft: Omit<Post, "id" | "comments">) => setPosts([{
-        ...draft,
-        id: crypto.randomUUID(),
-        comments: []
-    }, ...posts]);
-    return <Routes><Route path="/" element={<Feed posts={posts} remove={remove}/>}/><Route path="/create"
-                                                                                           element={<CreatePost
-                                                                                               add={add}/>}/><Route
-        path="/posts/:id" element={<PostDetails posts={posts} remove={remove}/>}/><Route path="*"
-                                                                                         element={<Navigate to="/"
-                                                                                                            replace/>}/></Routes>;
+
+    async function add(draft: NewPost) {
+        const post = await createPost(draft);
+        setPosts(current => [post, ...current]);
+    }
+
+    async function remove(post: Post) {
+        // New posts only exist in this browser, so there is nothing to delete online.
+        if (!post.isLocal) await deletePost(post.id);
+        setPosts(current => current.filter(item => item.id !== post.id));
+    }
+
+    return <Routes>
+        <Route path="/" element={<Feed posts={posts} loading={loading} error={error}/>}/>
+        <Route path="/create" element={<CreatePost add={add}/>}/>
+        <Route path="/posts/:id" element={<PostDetails posts={posts} loading={loading} remove={remove}/>}/>
+        <Route path="*" element={<Navigate to="/" replace/>}/>
+    </Routes>;
 }
 
 export function App() {

@@ -4,11 +4,7 @@ const Page = ({ children }: { children: React.ReactNode }) => {
     return (
         <div className="site-shell">
             <header className="topbar">
-                <Link className="brand" to="/">KAS</Link>
-                <nav>
-                    <Link to="/">Feed</Link>
-                    <Link to="/create">Create post</Link>
-                </nav>
+                <Link className="brand" to="/" aria-label="KAS home">KAS</Link>
             </header>
             <main>{children}</main>
         </div>

@@ -24,6 +24,8 @@ logs/
 # Caches
 .eslintcache
 .cache
+.bun-cache/
+.tmp/
 *.tsbuildinfo
 
 # IntelliJ / WebStorm
