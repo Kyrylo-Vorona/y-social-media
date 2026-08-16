@@ -1,0 +1,14 @@
+import {Link} from "react-router-dom";
+import { type Post } from "../types/post";
+
+const PostCard = ({ post, remove }: { post: Post; remove: (id: string) => void }) => {
+    return <article className="post-card"><p className="post-meta">{post.author}</p><Link className="post-link"
+                                                                                          to={`/posts/${post.id}`}>
+        <h2>{post.title}</h2><p>{post.body}</p></Link>
+        <footer className="post-actions"><Link to={`/posts/${post.id}`}>{post.comments.length} comments</Link>
+            <button className="button-text danger" onClick={() => remove(post.id)}>Delete</button>
+        </footer>
+    </article>;
+}
+
+export default PostCard;
