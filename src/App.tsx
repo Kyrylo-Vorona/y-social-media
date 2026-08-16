@@ -28,27 +28,47 @@ function SocialApp() {
         loadPosts();
     }, []);
 
-    async function add(draft: NewPost) {
+    async function addPost(draft: NewPost) {
         const post = await createPost(draft);
         setPosts(current => [post, ...current]);
     }
 
-    async function remove(post: Post) {
+    async function removePost(post: Post) {
         // New posts only exist in this browser, so there is nothing to delete online.
         if (!post.isLocal) await deletePost(post.id);
         setPosts(current => current.filter(item => item.id !== post.id));
     }
 
-    return <Routes>
-        <Route path="/" element={<Feed posts={posts} loading={loading} error={error}/>}/>
-        <Route path="/create" element={<CreatePost add={add}/>}/>
-        <Route path="/posts/:id" element={<PostDetails posts={posts} loading={loading} remove={remove}/>}/>
-        <Route path="*" element={<Navigate to="/" replace/>}/>
-    </Routes>;
+    return (
+        <Routes>
+            <Route
+                path="/"
+                element={
+                    <Feed posts={posts} loading={loading} error={error}/>
+                }
+            />
+            <Route path="/create" element={<CreatePost addPost={addPost}/>}/>
+            <Route
+                path="/posts/:id"
+                element={
+                    <PostDetails
+                        posts={posts}
+                        loading={loading}
+                        removePost={removePost}
+                    />
+                }
+            />
+            <Route path="*" element={<Navigate to="/" replace/>}/>
+        </Routes>
+    );
 }
 
 export function App() {
-    return <BrowserRouter><SocialApp/></BrowserRouter>;
+    return (
+        <BrowserRouter>
+            <SocialApp/>
+        </BrowserRouter>
+    );
 }
 
 export default App;

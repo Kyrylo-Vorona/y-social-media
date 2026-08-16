@@ -7,10 +7,10 @@ import {getComments} from "../api/posts.ts";
 type PostDetailsProps = {
     posts: Post[];
     loading: boolean;
-    remove: (post: Post) => Promise<void>;
+    removePost: (post: Post) => Promise<void>;
 };
 
-const PostDetails = ({posts, loading, remove}: PostDetailsProps) => {
+const PostDetails = ({posts, loading, removePost}: PostDetailsProps) => {
     const postId = Number(useParams().id);
     const post = posts.find(item => item.id === postId);
     const navigate = useNavigate();
@@ -53,7 +53,7 @@ const PostDetails = ({posts, loading, remove}: PostDetailsProps) => {
         setDeleting(true);
         setDeleteError("");
         try {
-            await remove(post);
+            await removePost(post);
             navigate("/");
         } catch {
             setDeleteError("Could not delete the post. Please try again.");
@@ -61,25 +61,73 @@ const PostDetails = ({posts, loading, remove}: PostDetailsProps) => {
         }
     }
 
-    if (loading) return <Page><p className="status">Loading post…</p></Page>;
-    if (!post) return <Page><p className="empty">Post not found. <Link to="/">Return to feed</Link></p></Page>;
-    return <Page><Link className="back-link" to="/">← Back to feed</Link>
-        <article className="post-card post-detail"><p className="post-meta">{post.author}</p><h1>{post.title}</h1>
-            <p>{post.body}</p>
-            {deleteError && <p className="status error" role="alert">{deleteError}</p>}
-            <button className="button-text danger" onClick={handleDelete} disabled={deleting}>
-                {deleting ? "Deleting…" : "Delete post"}
-            </button>
-        </article>
-        <section className="comments"><h2>Comments ({comments.length})</h2>
-            {commentsLoading && <p className="status">Loading comments…</p>}
-            {commentsError && <p className="status error" role="alert">{commentsError}</p>}
-            {!commentsLoading && !commentsError && comments.map(comment =>
-                <article className="comment" key={comment.id}><strong>{comment.author}</strong><p>{comment.body}</p>
-                </article>)}
-            {!commentsLoading && !commentsError && !comments.length && <p>No comments yet.</p>}
-        </section>
-    </Page>;
-}
+    if (loading) {
+        return (
+            <Page>
+                <p className="status">Loading post…</p>
+            </Page>
+        );
+    }
+
+    if (!post) {
+        return (
+            <Page>
+                <p className="empty">
+                    Post not found. <Link to="/">Return to feed</Link>
+                </p>
+            </Page>
+        );
+    }
+
+    return (
+        <Page>
+            <Link className="back-link" to="/">
+                ← Back to feed
+            </Link>
+
+            <article className="post-card post-detail">
+                <p className="post-meta">{post.author}</p>
+                <h1>{post.title}</h1>
+                <p>{post.body}</p>
+
+                {deleteError && (
+                    <p className="status error" role="alert">
+                        {deleteError}
+                    </p>
+                )}
+
+                <button
+                    className="button-text danger"
+                    disabled={deleting}
+                    onClick={handleDelete}
+                >
+                    {deleting ? "Deleting…" : "Delete post"}
+                </button>
+            </article>
+
+            <section className="comments">
+                <h2>Comments ({comments.length})</h2>
+
+                {commentsLoading && (
+                    <p className="status">Loading comments…</p>
+                )}
+                {commentsError && (
+                    <p className="status error" role="alert">
+                        {commentsError}
+                    </p>
+                )}
+                {!commentsLoading && !commentsError && comments.map(comment => (
+                    <article className="comment" key={comment.id}>
+                        <strong>{comment.author}</strong>
+                        <p>{comment.body}</p>
+                    </article>
+                ))}
+                {!commentsLoading && !commentsError && !comments.length && (
+                    <p>No comments yet.</p>
+                )}
+            </section>
+        </Page>
+    );
+};
 
 export default PostDetails;

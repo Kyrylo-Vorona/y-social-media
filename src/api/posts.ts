@@ -12,21 +12,26 @@ type ApiPost = {
 type ApiComment = {
     id: number;
     body: string;
-    user: {username: string; fullName: string};
+    user: {
+        username: string;
+        fullName: string;
+    };
 };
 
 // Convert a post from the API into the format used by our app.
-const toPost = (post: ApiPost): Post => ({
-    ...post,
-    author: `User ${post.userId}`,
-});
+function formatPost(post: ApiPost): Post {
+    return {
+        ...post,
+        author: `User ${post.userId}`,
+    };
+}
 
 export async function getPosts(): Promise<Post[]> {
     const response = await fetch(`${API_URL}/posts?limit=30`);
     if (!response.ok) throw new Error("Could not load posts");
 
     const data = await response.json() as {posts: ApiPost[]};
-    return data.posts.map(toPost);
+    return data.posts.map(formatPost);
 }
 
 export async function getComments(postId: number): Promise<Comment[]> {
@@ -52,7 +57,12 @@ export async function createPost(draft: NewPost): Promise<Post> {
     const post = await response.json() as ApiPost;
 
     // DummyJSON does not save new posts, so we give each one a local id.
-    return {...toPost(post), id: Date.now(), author: draft.author, isLocal: true};
+    return {
+        ...formatPost(post),
+        id: Date.now(),
+        author: draft.author,
+        isLocal: true,
+    };
 }
 
 export async function deletePost(postId: number): Promise<void> {
