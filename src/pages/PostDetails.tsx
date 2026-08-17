@@ -48,8 +48,7 @@ const PostDetails = ({posts, loading, removePost}: PostDetailsProps) => {
     }, [post]);
 
     async function handleDelete() {
-        // Always ask for confirmation before deleting a post.
-        if (!post || !window.confirm(`Delete “${post.title}”?`)) return;
+        if (!post) return;
         setDeleting(true);
         setDeleteError("");
         try {

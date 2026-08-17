@@ -21,25 +21,6 @@
     background: var(--page-background);
 }
 
-:root[data-theme="dark"] {
-    color-scheme: dark;
-    --page-background: #111827;
-    --surface: #1f2937;
-    --text: #f3f4f6;
-    --muted: #cbd5e1;
-    --soft-muted: #94a3b8;
-    --label: #e2e8f0;
-    --border: #374151;
-    --subtle-border: #334155;
-    --input-border: #475569;
-    --accent: #6d8cff;
-    --accent-hover: #8ba6ff;
-    --accent-soft: #1e3a5f;
-    --danger: #fb7185;
-    --danger-soft: #4c1d2b;
-    --danger-text: #fecdd3;
-}
-
 * {
     box-sizing: border-box;
 }
@@ -90,24 +71,6 @@ body, .topbar, .post-card, .form-page, .comments, input, textarea {
     font-size: 22px;
     font-weight: 800;
     text-decoration: none;
-}
-
-.theme-toggle {
-    grid-column: 3;
-    justify-self: end;
-    border: 1px solid var(--border);
-    border-radius: 9px;
-    background: var(--surface);
-    color: var(--text);
-    padding: 8px 10px;
-    font-size: 13px;
-    font-weight: 700;
-    cursor: pointer;
-}
-
-.theme-toggle:hover {
-    border-color: var(--accent);
-    color: var(--accent);
 }
 
 .page-heading {
@@ -347,11 +310,6 @@ textarea {
 
     .topbar {
         margin-bottom: 24px;
-    }
-
-    .theme-toggle {
-        padding: 8px;
-        font-size: 12px;
     }
 
     .page-heading {

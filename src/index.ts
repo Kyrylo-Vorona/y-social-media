@@ -16,4 +16,4 @@ const server = serve({
   },
 });
 
-console.log(`🚀 Server running at ${server.url}`);
+console.log(`🚀 Server running at http://localhost:${server.port}/`);
