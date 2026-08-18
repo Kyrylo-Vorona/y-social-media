@@ -2,7 +2,8 @@ import { serve } from "bun";
 import index from "./index.html";
 
 const server = serve({
-  hostname: "localhost",
+  // Use all network interfaces so the app is reachable from Docker.
+  hostname: "0.0.0.0",
   port: Number(process.env.PORT) || 3000,
   routes: { "/*": index },
 
@@ -15,4 +16,4 @@ const server = serve({
   },
 });
 
-console.log(`🚀 Server running at ${server.url}`);
+console.log(`🚀 Server running at http://localhost:${server.port}/`);

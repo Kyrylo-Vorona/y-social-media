@@ -1,8 +1,24 @@
 :root {
     font-family: Inter, ui-sans-serif, system-ui, sans-serif;
-    color: #18212f;
-    background: #f4f6f8;
     font-synthesis: none;
+    color-scheme: light;
+    --page-background: #f4f6f8;
+    --surface: #ffffff;
+    --text: #18212f;
+    --muted: #4d596b;
+    --soft-muted: #687589;
+    --label: #354052;
+    --border: #dfe4eb;
+    --subtle-border: #edf0f4;
+    --input-border: #cdd5df;
+    --accent: #2356d8;
+    --accent-hover: #1746bc;
+    --accent-soft: #eef3ff;
+    --danger: #bd2e38;
+    --danger-soft: #fff0f1;
+    --danger-text: #9f2430;
+    color: var(--text);
+    background: var(--page-background);
 }
 
 * {
@@ -12,6 +28,8 @@
 body {
     margin: 0;
     min-width: 320px;
+    background: var(--page-background);
+    color: var(--text);
 }
 
 a {
@@ -22,47 +40,37 @@ button, input, textarea {
     font: inherit;
 }
 
+body, .topbar, .post-card, .form-page, .comments, input, textarea {
+    transition: background-color .2s ease, color .2s ease, border-color .2s ease;
+}
+
 .site-shell {
-    width: min(760px, calc(100% - 32px));
+    width: min(960px, calc(100% - 32px));
     margin: 0 auto;
     padding-bottom: 48px;
 }
 
 .topbar {
     height: 72px;
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
     align-items: center;
-    justify-content: space-between;
-    border-bottom: 1px solid #dfe4eb;
+    border-bottom: 1px solid var(--border);
     margin-bottom: 32px;
 }
 
 .brand {
+    grid-column: 2;
     display: grid;
     place-items: center;
     width: 100px;
     height: 38px;
-    background: #2356d8;
+    background: var(--accent);
     color: white;
     border-radius: 12px;
     font-size: 22px;
     font-weight: 800;
     text-decoration: none;
-}
-
-nav {
-    display: flex;
-    gap: 20px;
-}
-
-nav a {
-    color: #657084;
-    font-weight: 650;
-    text-decoration: none;
-}
-
-nav a.active {
-    color: #2356d8;
 }
 
 .page-heading {
@@ -91,24 +99,15 @@ h2 {
 
 p {
     line-height: 1.55;
-    color: #4d596b;
-}
-
-.eyebrow {
-    margin-bottom: 5px;
-    color: #2356d8;
-    font-size: 13px;
-    font-weight: 800;
-    letter-spacing: .08em;
-    text-transform: uppercase;
+    color: var(--muted);
 }
 
 .button {
     display: inline-block;
     border: 0;
     border-radius: 9px;
-    background: #2356d8;
-    color: #fff;
+    background: var(--accent);
+    color: #ffffff;
     padding: 10px 14px;
     font-weight: 750;
     text-decoration: none;
@@ -117,13 +116,18 @@ p {
 }
 
 .button:hover {
-    background: #1746bc;
+    background: var(--accent-hover);
+}
+
+.button:disabled, .button-text:disabled {
+    cursor: wait;
+    opacity: .65;
 }
 
 .search, form label {
     display: grid;
     gap: 7px;
-    color: #354052;
+    color: var(--label);
     font-size: 14px;
     font-weight: 700;
 }
@@ -134,67 +138,79 @@ p {
 
 .search input, form input, form textarea {
     width: 100%;
-    border: 1px solid #cdd5df;
+    border: 1px solid var(--input-border);
     border-radius: 9px;
     padding: 12px;
-    background: white;
-    color: #18212f;
-    outline-color: #2356d8;
+    background: var(--surface);
+    color: var(--text);
+    outline-color: var(--accent);
     font-weight: 400;
 }
 
 .feed {
     display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 14px;
 }
 
 .post-card, .form-page, .comments {
-    border: 1px solid #dfe4eb;
+    border: 1px solid var(--border);
     border-radius: 14px;
-    background: #fff;
+    background: var(--surface);
     padding: 22px;
+}
+
+.feed .post-card {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    height: 100%;
+    transition: transform .18s ease, background-color .2s ease,
+        color .2s ease, border-color .2s ease;
+}
+
+.feed .post-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
 }
 
 .post-meta {
     display: flex;
     align-items: center;
     gap: 7px;
-    color: #687589;
+    color: var(--soft-muted);
     font-size: 14px;
-}
-
-.avatar {
-    display: grid;
-    place-items: center;
-    width: 27px;
-    height: 27px;
-    border-radius: 50%;
-    background: #dce6ff;
-    color: #2356d8;
-    font-weight: 800;
 }
 
 .post-link {
     display: block;
-    text-decoration: none;
+    flex: 1;
     margin-top: 14px;
+    text-decoration: none;
 }
 
 .post-link:hover h2 {
-    color: #2356d8;
+    color: var(--accent);
+}
+
+.post-link p {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
 }
 
 .post-actions {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
     margin-top: 18px;
-    border-top: 1px solid #edf0f4;
+    border-top: 1px solid var(--subtle-border);
     padding-top: 13px;
 }
 
 .post-actions a, .back-link {
-    color: #2356d8;
+    color: var(--accent);
     font-weight: 700;
     text-decoration: none;
 }
@@ -202,7 +218,7 @@ p {
 .button-text {
     border: 0;
     background: transparent;
-    color: #4d596b;
+    color: var(--muted);
     padding: 0;
     font-weight: 700;
     cursor: pointer;
@@ -210,7 +226,7 @@ p {
 }
 
 .danger {
-    color: #bd2e38;
+    color: var(--danger);
 }
 
 .back-link {
@@ -233,7 +249,7 @@ p {
 
 .comment {
     padding: 14px 0;
-    border-top: 1px solid #edf0f4;
+    border-top: 1px solid var(--subtle-border);
 }
 
 .comment p {
@@ -243,10 +259,6 @@ p {
 .form-page {
     max-width: 600px;
     margin: 0 auto;
-}
-
-.form-page > p:not(.eyebrow) {
-    margin-bottom: 24px;
 }
 
 form {
@@ -267,14 +279,33 @@ textarea {
 }
 
 .empty {
+    grid-column: 1 / -1;
     padding: 34px 20px;
     text-align: center;
-    color: #687589;
+    color: var(--soft-muted);
+}
+
+.status {
+    padding: 18px;
+    border-radius: 9px;
+    background: var(--accent-soft);
+    text-align: center;
+}
+
+.error {
+    background: var(--danger-soft);
+    color: var(--danger-text);
+}
+
+@media (max-width: 640px) {
+    .feed {
+        grid-template-columns: 1fr;
+    }
 }
 
 @media (max-width: 520px) {
     .site-shell {
-        width: min(100% - 24px, 760px);
+        width: min(100% - 24px, 960px);
     }
 
     .topbar {
@@ -293,5 +324,12 @@ textarea {
 
     .post-card, .form-page, .comments {
         padding: 17px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        scroll-behavior: auto !important;
+        transition: none !important;
     }
 }

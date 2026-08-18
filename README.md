@@ -1,6 +1,8 @@
 # KAS Social Media
 
-KAS is a small React and TypeScript social feed. It supports browsing and searching posts, opening a post with its comments, creating a post, and deleting a post. Posts are stored in browser memory for this MVP, so refreshing restores the example feed.
+KAS is a small React and TypeScript social feed powered by the DummyJSON API. It supports browsing and searching posts, reading a post with its comments, creating a post, and deleting a post from its detail page.
+
+DummyJSON simulates create and delete operations without saving them permanently. KAS therefore keeps those changes in browser memory until the page is refreshed.
 
 ## Run with Bun
 
@@ -28,26 +30,19 @@ bun start
 
 ## Run in Docker
 
+On Windows, Docker Desktop needs WSL 2. Open PowerShell as administrator once,
+run `wsl --install`, and restart Windows if requested.
+
 ```bash
-docker build -t flykas .
-docker run --rm -p 3000:3000 flykas
+docker build -t y-social-media .
+docker run --rm -p 3000:3000 y-social-media
 ```
 
 Open http://localhost:3000. The included `fly.toml` is configured to deploy the same Docker image to Fly.io.
 
+## Project links
 
-
-by 
-
-Azade - Samuele - Kyrylo
-
-
-
-Deployed site
-
-https://flykas.fly.dev/
-
-
-
-GitHub link: [Kyrylo-Vorona/y-social-media](https://github.com/Kyrylo-Vorona/y-social-media)
+- Deployed site: https://flykas.fly.dev/
+- GitHub: https://github.com/Kyrylo-Vorona/y-social-media
+- Authors: Azade, Samuele, Kyrylo
 
